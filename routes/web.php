@@ -19,14 +19,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/List-paciente/',  [App\Http\Controllers\HomeController::class, 'listPaciente']);
+//Route::get('/List-paciente/',  [App\Http\Controllers\HomeController::class, 'listPaciente']);
 Route::get('/create-paciente',  [App\Http\Controllers\PacienteController::class, 'btnView']); //'Controllers\PacienteController@btnView');
 Route::get('/select-change/{id}',[App\Http\Controllers\PacienteController::class, 'changeSelect']);
-Route::post('/prueba-createpaciente', [App\Http\Controllers\PacienteController::class, 'store']);
-Route::post('/prueba-editpaciente', [App\Http\Controllers\PacienteController::class, 'edit'])->name('paciente.edit');
-Route::post('/prueba-delete', [App\Http\Controllers\PacienteController::class, 'deletePaciente'])->name('paciente.Destroy');
+Route::post('/prueba-createpaciente/', [App\Http\Controllers\PacienteController::class, 'store']);
+
+
 Route::get('/paciente/{id}',[App\Http\Controllers\PacienteController::class, 'pacienteId']);
 
-
+Route::get('/paciente-dato-edit/{id}',[App\Http\Controllers\PacienteController::class, 'pacienteIdedit']);
+Route::post('/prueba-editpaciente/', [App\Http\Controllers\PacienteController::class, 'editPaciente']);
+//Route::get('/prueba-delete/{id}', [App\Http\Controllers\PacienteController::class, 'pacienteId'])->name('paciente.delete');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

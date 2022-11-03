@@ -23,13 +23,13 @@ class CreatePacientesTable extends Migration
             $table->string('apellido2')->nullable();
          //   $table->string('foto');
             $table->integer('fK_id_genero')->unsigned();
-         //   $table->integer('fk_id_departamento')->unsigned();
+            $table->integer('fk_id_departamento')->unsigned();
             $table->integer('fk_id_municipio')->unsigned();
 
             $table->foreign('fK_id_genero')->references('id_genero')->on('generos');
             $table->foreign('fk_id_municipio')->references('id_municipio')->on('municipios');
             $table->foreign('fK_id_tipdocumento')->references('id_tipo_documento')->on('tipos_documento');
-          //  $table->foreign('fk_id_departamento')->references('id_departamento')->on('departamentos');
+            $table->foreign('fk_id_departamento')->references('id_departamento')->on('departamentos');
             $table->timestamps();
         });
     }

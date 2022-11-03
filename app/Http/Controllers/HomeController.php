@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\departamentos;
 use App\Models\generos;
+use App\Models\municipios;
 use App\Models\tipos_documento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,9 +28,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {       
+    {  
 
-        //registros de pacientes
+       //registros de pacientes
       $pacientesAll = DB::table('pacientes')
        ->leftJoin('departamentos', 'pacientes.fk_id_departamento', '=', 'departamentos.id_departamento')
        ->leftJoin('municipios', 'pacientes.fk_id_municipio', '=', 'municipios.id_municipio')
@@ -55,8 +56,10 @@ class HomeController extends Controller
        $type = tipos_documento::all();
        $genero = generos::all();
        $departamento = departamentos::all();
+       $municipio = municipios::all();
 
-        return view('home')->with(['type' => $type, 'genero' => $genero, 'departamento' => $departamento, 'datos' => $datos]);
+
+        return view('home')->with(['type' => $type, 'genero' => $genero, 'departamento' => $departamento, 'municipio' => $municipio, 'datos' => $datos]);
     }
 
     public function listPaciente(){

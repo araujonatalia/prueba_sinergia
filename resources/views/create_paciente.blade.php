@@ -69,13 +69,11 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> Municipio*</label>
-                                    <select class="form-control" id="fk_id_municipio" style="width: 100%" required>>
-                                        
-                                    
+                                    <select class="form-control" id="fk_id_municipio" style="width: 100%" required>
                                     </select>
                                 </div>
                             </div>  
-                            <button type="button" class="btn btn-primary btn-block mt-5 js--btnreate--paciente">Guardar cambios</button> 
+                            <button type="button" class="btn btn-primary btn-block mt-5 js--btncreate--paciente">Guardar cambios</button> 
                         </form>   
                     </div>
                 </div>
@@ -89,9 +87,4 @@
 </section>
 
 @endsection
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary js--button--vehicle">Guardar cambios</button>
-          </div>
    

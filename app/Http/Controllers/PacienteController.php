@@ -47,44 +47,56 @@ class PacienteController extends Controller
         return response()->json($municipio);
     }
 
-    public function pacienteId ($id){
-        $paciente = pacientes::where('id_paciente', $id)->first();
+    public function pacienteId (Request $id){
+        $paciente = pacientes::where('num_documento', $id->id);
+        $paciente->delete();
+        return response()->json(['info' => '200']);
+    }
+
+    public function pacienteIdedit ($id){
+
+         $paciente  = DB::table('pacientes')
+        ->leftJoin('departamentos', 'pacientes.fk_id_departamento', '=', 'departamentos.id_departamento')
+        ->leftJoin('municipios', 'pacientes.fk_id_municipio', '=', 'municipios.id_municipio')
+        ->leftJoin('tipos_documento', 'pacientes.fK_id_tipdocumento', '=', 'tipos_documento.id_tipo_documento')
+        ->leftJoin('generos', 'pacientes.fk_id_genero', '=', 'generos.id_genero')
+        ->select('pacientes.id_paciente', 'pacientes.nombre1', 'pacientes.nombre2', 'pacientes.apellido1', 'pacientes.apellido2', 'pacientes.num_documento','tipos_documento.id_tipo_documento as nomdocumento',
+         'generos.id_genero as generonom','municipios.id_municipio as municipio', 'departamentos.id_departamento as depart')
+         ->where('pacientes.num_documento', $id)->get();
+     
         return response()->json($paciente);
     }
 
+
     public function store(Request $request)
     {
-        //guardar paciente 
+        //Crear paciente 
         try{
-           // dd($request->num_documento);
+            DB::beginTransaction();
             $data = $request->params;
-            DB::beginTransaction();
-            $datas = new pacientes();
-            $datas->fK_id_tipdocumento = $data['fK_id_tipdocumento'];
-            $datas->num_documento = $data['num_documento'];
-            $datas->nombre1 = $data['nombre1'];
-            $datas->nombre2 = $data['nombre2'];
-            $datas->apellido1 = $data['apellido1'];
-            $datas->apellido2 = $data['apellido2'];
-            $datas->fK_id_genero = $data['fK_id_genero'];
-            $datas->fk_id_departamento =$data['fk_id_departamento'];
-            $datas->fk_id_municipio = $data['fk_id_municipio'];
-            $datas->save();
-    
-            DB::commit();
-            return response()->json(['info'=>'200']);
-            }catch (Exception $e){
-                DB::rollBack();
-             return response()->json(['info'=>'500']);
-            }
-    }
+           
+            $vpac = pacientes::where('num_documento', $data['num_documento'])->first();
 
-    public function edit(Request $request){
-        try{
-            DB::beginTransaction();
-         //$data->name_inspection = $request->name_inspection;
-           // $data->save();
+            if(empty($vpac)){
+                $datas = new pacientes();
+               
+                $datas->fK_id_tipdocumento = $data['fK_id_tipdocumento'];
+                $datas->num_documento = $data['num_documento'];
+                $datas->nombre1 = $data['nombre1'];
+                $datas->nombre2 = $data['nombre2'];
+                $datas->apellido1 = $data['apellido1'];
+                $datas->apellido2 = $data['apellido2'];
+                $datas->fK_id_genero = $data['fK_id_genero'];
+                $datas->fk_id_departamento =$data['fk_id_departamento'];
+                $datas->fk_id_municipio = $data['fk_id_municipio'];
+                // return $datas;
+                $datas->save(); 
+
+            } else{
+                return response()->json(['info'=>'ya existe']);
+            }
             DB::commit();
+            
             return response()->json(['info'=>'200']);
         }catch (Exception $e){
             DB::rollBack();
@@ -92,32 +104,39 @@ class PacienteController extends Controller
         }
     }
 
-    public function deletePaciente($id){
-
-        $eliminar = pacientes::find($id);
-        $eliminar->delete();
-        return response()->json(['info' => '200']);
-    }
-
-
-    /*
-     //add inspection
-    public function createInspection(Request $request){
+    public function editPaciente(Request $request){
         try{
-        DB::beginTransaction();
-        $datas = new inspectionPreoperational();
-        $datas->name_inspection = $request->name_inspection;
-        $datas->save();
-
-        DB::commit();
-        return response()->json(['info'=>'200']);
+            DB::beginTransaction();
+            $data = $request->params;
+          
+            $datas = pacientes::where('num_documento', $data['num_documento'])->first();
+           // return $datas;
+            $datas->fK_id_tipdocumento = $data['fK_id_tipdocumento'];
+            $datas->nombre1 = $data['nombre1'];
+            $datas->nombre2 = $data['nombre2'];
+            $datas->apellido1 = $data['apellido1'];
+            $datas->apellido2 = $data['apellido2'];
+            $datas->fK_id_genero = $data['fK_id_genero'];
+            $datas->fk_id_departamento =$data['fk_id_departamento'];
+            $datas->fk_id_municipio = $data['fk_id_municipio'];
+        //return $data;
+            $datas->update();
+            return $data;
+            DB::commit();
+          //  return response()->json(['info'=>'200']);
         }catch (Exception $e){
             DB::rollBack();
-         return response()->json(['info'=>'500']);
+            return $e;
+           // return response()->json(['info'=>'500']);
         }
     }
 
-    public function editInspection (Request $request){
+
+
+    /*
+     
+
+ublic function editInspection (Request $request){
         try{
             DB::beginTransaction();
             $data = inspectionPreoperational::find($request->idinspection);
@@ -131,12 +150,7 @@ class PacienteController extends Controller
         }
     }
 
-    public function deleteInspection(Request $request){
 
-        $eliminar = inspectionPreoperational::find($request->idinspection);
-        $eliminar->delete();
-        return response()->json(['info' => '200']);
-    }
      
      */
 
