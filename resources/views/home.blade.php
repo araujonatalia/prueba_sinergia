@@ -84,7 +84,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Editar Paciente</h4>
+            <h4 class="modal-title" id="myModalLabel" style=" padding-right: 300px;">Editar Paciente</h4>
           </div>
           <div class="modal-body">
             <form method="POST" action="/prueba-editpaciente/" id="formCreatePaciente">
@@ -172,38 +172,7 @@
 <script>
     $(document).ready(function () {
        var tabla=  $("#tablepacientes").DataTable()
-       setInterval(tabla,25000);
-      //  function actualizar(){tabla}
-     //   setInterval(tabla,3000);
-   /* $.get("/List-paciente/", function (data) {
-        console.log(data);
-        var table =  $("#tablepacientes").DataTable({
-            paging: true,
-            searching: true,
-            data: data,
-            "destroy": true,
-            columns: [
-                { data: 'tipo'} ,
-                { data: 'cc' },
-                { data: 'nombres' },
-                { data: 'apellidos' },
-                { data: 'genero' },
-                { data: 'departamento' },
-                { data: 'municipio' },
-                { "data": null,
-                    render: function(data, type, row){
-                        return "<form action='/prueba-editpaciente' method='POST'>" +
-                                "<a data-paciente='"+data['id']+"' class='btn btn-primary btn--editPaciente' title='Actualizar' id='editartype'><i class='fa fa-edit' style='font-size: 15px; color: white'></i></a>"+
-                                "<input type='hidden' name='idpaciente' value='"+data['id']+"'>"+
-                                "<button class='btn btn-primary' type='submit' style='margin-left: 20px;'><i class='fas fa-trash' style='text-align: center;font-size: 15px;color: rgb(236, 236, 240)'></i></button>"+
-                                "<button data-pac='"+data['id']+"' class='btn btn-warning btn--deletePaciente' type='submit' style='margin-left: 20px;'><i class='fas fa-trash' style='text-align: center;font-size: 15px;color: rgb(236, 236, 240)'></i></button>";
-                                      "</form>";
-                    },
-                "targets": -1
-                }
-            ],
-        });
-    });*/
+      // setInterval(tabla, 25000);
 });
 </script>
 @endsection

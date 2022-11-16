@@ -34,7 +34,6 @@
                                     <label>Segundo Apellido</label>
                                     <input type="text" class="form-control" id="apellido2" placeholder="Segundo Apellido" value="" required>
                                 </div>
-
                                 <div class="form-group col-md-4">
                                     <label> Tipo Documento*</label>
                                     <input type="hidden" class="id-vehiculo" value="">
@@ -70,6 +69,7 @@
                                 <div class="form-group col-md-6">
                                     <label> Municipio*</label>
                                     <select class="form-control" id="fk_id_municipio" style="width: 100%" required>
+                                        
                                     </select>
                                 </div>
                             </div>  

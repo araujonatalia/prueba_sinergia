@@ -110,7 +110,7 @@ class PacienteController extends Controller
             $data = $request->params;
           
             $datas = pacientes::where('num_documento', $data['num_documento'])->first();
-           // return $datas;
+
             $datas->fK_id_tipdocumento = $data['fK_id_tipdocumento'];
             $datas->nombre1 = $data['nombre1'];
             $datas->nombre2 = $data['nombre2'];
@@ -119,14 +119,18 @@ class PacienteController extends Controller
             $datas->fK_id_genero = $data['fK_id_genero'];
             $datas->fk_id_departamento =$data['fk_id_departamento'];
             $datas->fk_id_municipio = $data['fk_id_municipio'];
-        //return $data;
-            $datas->update();
-            return $data;
+            $datas->save();
+           
             DB::commit();
-          //  return response()->json(['info'=>'200']);
+           // return Response()->json([ 'IsValid' => 'true']);
+            return response()->json(['info'=>'200']);
         }catch (Exception $e){
             DB::rollBack();
-            return $e;
+            return Response()->json([
+                'IsValid' => 'false',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace()
+            ]);
            // return response()->json(['info'=>'500']);
         }
     }

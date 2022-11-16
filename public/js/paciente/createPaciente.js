@@ -151,7 +151,7 @@ $(document).ready(function() {
             'fk_id_departamento': $('#selectDepart option:selected').val(),
             'fk_id_municipio': $('#fk_id_municipio option:selected').val(), 
         }
-       console.log(params);
+      // console.log(params);
         $.ajax({
             url: '/prueba-editpaciente/',
             dataType: 'JSON',
@@ -173,7 +173,7 @@ $(document).ready(function() {
                     $('#name_segments').val('');
                     $('.js--button--editsegment').remove();
                     $('#ModalSegment').modal('hide');*/
-                 //   location.reload();
+                    location.reload();
                 } else {
                     Swal.fire({
                         position: 'center',

@@ -24,4 +24,6 @@ class pacientes extends Model
         'fk_id_departamento',
         'fk_id_municipio',
     ];
+
+    protected $primaryKey = 'id_paciente';
 }
